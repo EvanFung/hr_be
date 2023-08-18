@@ -62,6 +62,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
                         resp.setContentType("application/json;charset=utf-8");
                         PrintWriter out = resp.getWriter();
                         Hr principal = (Hr) authentication.getPrincipal();
+                        // Hide password
+                        principal.setPassword(null);
                         RespBean login_success = RespBean.ok("login success", principal);
                         String s = new ObjectMapper().writeValueAsString(login_success);
                         out.write(s);
@@ -99,8 +101,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
                 .logout()
                 .logoutSuccessHandler(new LogoutSuccessHandler() {
                     @Override
-                    public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-
+                    public void onLogoutSuccess(HttpServletRequest req, HttpServletResponse resp, Authentication authentication) throws IOException, ServletException {
+                        resp.setContentType("application/json;charset=utf-8");
+                        PrintWriter out = resp.getWriter();
+                        out.write(new ObjectMapper().writeValueAsString(RespBean.ok("logout success")));
+                        out.flush();
+                        out.close();
                     }
                 })
                 .permitAll()
