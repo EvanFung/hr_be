@@ -4,6 +4,7 @@ import org.evan.hr_be.mapper.MenuMapper;
 import org.evan.hr_be.model.Hr;
 import org.evan.hr_be.model.Menu;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +23,10 @@ public class MenuService {
     public List<Menu> getMenusByHrId() {
         //can't use parameters which passed from front end
         return menuMapper.getMenusByHrId(((Hr) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId());
+    }
+
+//    @Cacheable
+    public List<Menu> getAllMenusWithRole() {
+        return menuMapper.getAllMenusWithRole();
     }
 }

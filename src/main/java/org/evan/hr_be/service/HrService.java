@@ -24,6 +24,10 @@ public class HrService implements UserDetailsService {
         if (hr == null) {
             throw new UsernameNotFoundException("username is incorrect");
         }
+        hr.setRoles(hrMapper.getHrRolesById(hr.getId()));
+        hr.getRoles().forEach((role) -> {
+            System.out.println(hr.getName() + " " +role.getName());
+        });
         return hr;
     }
 }

@@ -2,6 +2,10 @@ package org.evan.hr_be.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.evan.hr_be.model.Hr;
+import org.evan.hr_be.model.Role;
+
+import java.util.List;
+
 @Mapper
 public interface HrMapper {
     int deleteByPrimaryKey(Integer id);
@@ -17,4 +21,6 @@ public interface HrMapper {
     int updateByPrimaryKey(Hr record);
 
     Hr loadUserByUsername(String username);
+
+    List<Role> getHrRolesById(Integer id);
 }
