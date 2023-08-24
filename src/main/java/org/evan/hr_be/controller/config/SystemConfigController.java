@@ -1,4 +1,4 @@
-package org.evan.hr_be.controller;
+package org.evan.hr_be.controller.config;
 
 import org.evan.hr_be.model.Menu;
 import org.evan.hr_be.service.MenuService;

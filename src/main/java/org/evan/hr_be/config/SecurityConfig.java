@@ -17,6 +17,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -125,7 +126,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
                 .permitAll()
                 .and()
                 .csrf()
-                .disable();
+                .disable()
+                .exceptionHandling()
+                // No login, or token expired redirect
+                .authenticationEntryPoint(new AuthenticationEntryPoint() {
+                    @Override
+                    public void commence(HttpServletRequest req, HttpServletResponse resp, AuthenticationException authException) throws IOException, ServletException {
+                        resp.setContentType("application/json;charset=utf-8");
+                        PrintWriter out = resp.getWriter();
+                        RespBean respBean = RespBean.error("Access failed");
+                        System.out.println(authException.getMessage());
+                        System.out.println(authException.getClass());
+                        if(authException instanceof InsufficientAuthenticationException) {
+                            respBean.setMsg("Access failed, please login");
+                        }
+
+                        out.write(new ObjectMapper().writeValueAsString(respBean));
+                        out.flush();
+                        out.close();
+                    }
+                });
 
     }
 }
