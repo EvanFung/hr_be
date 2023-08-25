@@ -1,5 +1,7 @@
 package org.evan.hr_be.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Position {
@@ -7,6 +9,8 @@ public class Position {
 
     private String name;
 
+    //time zone new york
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "America/New_York")
     private Date createDate;
 
     private Boolean enabled;

@@ -19,6 +19,10 @@
     from position
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <delete id="deletePositionByIds">
+    delete from position
+    where id in <foreach collection="ids" item="id" separator="," open="(" close=")">#{id}</foreach>
+  </delete>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from position
     where id = #{id,jdbcType=INTEGER}
@@ -78,8 +82,8 @@
   <update id="updateByPrimaryKey" parameterType="org.evan.hr_be.model.Position" >
     update position
     set name = #{name,jdbcType=VARCHAR},
-      createDate = #{createDate,jdbcType=TIMESTAMP},
-      enabled = #{enabled,jdbcType=BIT}
+        createDate = #{createDate,jdbcType=TIMESTAMP},
+        enabled = #{enabled,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

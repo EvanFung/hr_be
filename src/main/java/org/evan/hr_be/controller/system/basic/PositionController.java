@@ -35,16 +35,24 @@ public class PositionController {
 
     @PutMapping("/")
     public RespBean updatePositions(@RequestBody Position position) {
-        if(positionService.updatePositions(position) == 1) {
+        if (positionService.updatePositions(position) == 1) {
             return RespBean.ok("Updated successfully");
-        } else {
-            return RespBean.error("Update failed");
         }
+        return RespBean.error("Update failed");
     }
 
     @DeleteMapping("/{id}")
     public RespBean deletePositionById(@PathVariable Integer id) {
         if(positionService.deletePositionById(id) == 1) {
+            return RespBean.ok("Deleted successfully");
+        } else {
+            return RespBean.error("Delete failed");
+        }
+    }
+
+    @DeleteMapping("/")
+    public RespBean deletePositionsByIds(Integer[] ids) {
+        if(positionService.deletePositionsByIds(ids) == ids.length) {
             return RespBean.ok("Deleted successfully");
         } else {
             return RespBean.error("Delete failed");

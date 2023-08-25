@@ -128,24 +128,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
                 .csrf()
                 .disable()
                 .exceptionHandling()
-                // No login, or token expired redirect
-                .authenticationEntryPoint(new AuthenticationEntryPoint() {
-                    @Override
-                    public void commence(HttpServletRequest req, HttpServletResponse resp, AuthenticationException authException) throws IOException, ServletException {
-                        resp.setContentType("application/json;charset=utf-8");
-                        PrintWriter out = resp.getWriter();
-                        RespBean respBean = RespBean.error("Access failed");
-                        System.out.println(authException.getMessage());
-                        System.out.println(authException.getClass());
-                        if(authException instanceof InsufficientAuthenticationException) {
-                            respBean.setMsg("Access failed, please login");
+                //没有认证时，在这里处理结果，不要重定向
+                .authenticationEntryPoint((req, resp, authException) -> {
+                            resp.setContentType("application/json;charset=utf-8");
+                            resp.setStatus(401);
+                            PrintWriter out = resp.getWriter();
+                            RespBean respBean = RespBean.error("Access denied");
+                            if (authException instanceof InsufficientAuthenticationException) {
+                                respBean.setMsg("Request failed, please contact administrator");
+                            }
+                            out.write(new ObjectMapper().writeValueAsString(respBean));
+                            out.flush();
+                            out.close();
                         }
-
-                        out.write(new ObjectMapper().writeValueAsString(respBean));
-                        out.flush();
-                        out.close();
-                    }
-                });
+                );
 
     }
 }
