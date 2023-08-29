@@ -1,5 +1,7 @@
 package org.evan.hr_be.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class JobLevel {
@@ -9,6 +11,7 @@ public class JobLevel {
 
     private String titleLevel;
 
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "America/New_York")
     private Date createDate;
 
     private Boolean enabled;

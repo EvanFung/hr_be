@@ -1,6 +1,7 @@
 package org.evan.hr_be.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.evan.hr_be.model.JobLevel;
 
 import java.util.List;
@@ -20,4 +21,6 @@ public interface JobLevelMapper {
     int updateByPrimaryKey(JobLevel record);
 
     List<JobLevel> getAllJobLevels();
+
+    Integer deleteJobLevelByIds(@Param("ids") Integer[] ids);
 }
