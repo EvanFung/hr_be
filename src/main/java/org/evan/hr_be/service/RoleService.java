@@ -21,4 +21,10 @@ public class RoleService {
         return roleMapper.getAllRoles();
     }
 
+    public Integer addRole(Role role) {
+        if(!role.getName().startsWith("ROLE_")) {
+            role.setName("ROLE_" + role.getName());
+        }
+        return roleMapper.insertSelective(role);
+    }
 }
