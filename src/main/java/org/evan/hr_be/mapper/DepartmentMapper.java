@@ -20,4 +20,10 @@ public interface DepartmentMapper {
     int updateByPrimaryKey(Department record);
 
     List<Department> getAllDepartmentsByParentId(Integer i);
+
+    void addDep(Department dep);
+
+    void deleteDepById(Department dep);
+
+    List<Department> getAllDepartmentsWithOutChildren();
 }
