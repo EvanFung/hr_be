@@ -52,4 +52,12 @@ public class PermissController {
         }
         return RespBean.error("Add failed!");
     }
+
+    @DeleteMapping("/role/{rid}")
+    public RespBean deleteRoleById(@PathVariable Integer rid) {
+        if(roleService.deleteRoleById(rid) == 1) {
+            return RespBean.ok("Delete successfully!");
+        }
+        return RespBean.error("Delete failed!");
+    }
 }
