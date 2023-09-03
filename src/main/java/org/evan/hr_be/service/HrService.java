@@ -1,6 +1,7 @@
 package org.evan.hr_be.service;
 
 import org.evan.hr_be.mapper.HrMapper;
+import org.evan.hr_be.mapper.HrRoleMapper;
 import org.evan.hr_be.model.Hr;
 import org.evan.hr_be.utils.HrUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,8 @@ public class HrService implements UserDetailsService {
 
     @Autowired
     HrMapper hrMapper;
-
+    @Autowired
+    HrRoleMapper hrRoleMapper;
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         Hr hr = hrMapper.loadUserByUsername(s);
@@ -36,5 +38,15 @@ public class HrService implements UserDetailsService {
 
     public List<Hr> getAllHrs(String keywords) {
         return hrMapper.getAllHrs(HrUtils.getCurrentHr().getId(),keywords);
+    }
+
+    public Integer updateHr(Hr hr) {
+        return hrMapper.updateByPrimaryKeySelective(hr);
+    }
+
+    @Transactional
+    public boolean updateHrRole(Integer hrid, Integer[] rids) {
+        hrRoleMapper.deleteByHrid(hrid);
+        return hrRoleMapper.addRole(hrid, rids) == rids.length;
     }
 }

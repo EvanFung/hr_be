@@ -6,12 +6,12 @@ package org.evan.hr_be.controller.system;
  */
 
 import org.evan.hr_be.model.Hr;
+import org.evan.hr_be.model.RespBean;
+import org.evan.hr_be.model.Role;
 import org.evan.hr_be.service.HrService;
 import org.evan.hr_be.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,6 +26,28 @@ public class HrController {
     @GetMapping("/")
     public List<Hr> getAllHrs(String keywords) {
         return hrService.getAllHrs(keywords);
+    }
+
+
+    @PutMapping("/")
+    public RespBean updateHr(@RequestBody Hr hr) {
+        if (hrService.updateHr(hr) == 1) {
+            return RespBean.ok("Update successfully!");
+        }
+        return RespBean.error("Update failed!");
+    }
+
+    @GetMapping("/roles")
+    public List<Role> getAllRoles() {
+        return roleService.getAllRoles();
+    }
+
+    @PutMapping("/role")
+    public RespBean updateHrRole(Integer hrid, Integer[] rids) {
+        if (hrService.updateHrRole(hrid, rids)) {
+            return RespBean.ok("Update successfully!");
+        }
+        return RespBean.error("Update failed!");
     }
 
 }
