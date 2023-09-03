@@ -2,6 +2,7 @@ package org.evan.hr_be.service;
 
 import org.evan.hr_be.mapper.HrMapper;
 import org.evan.hr_be.model.Hr;
+import org.evan.hr_be.utils.HrUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -9,6 +10,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 @Service
@@ -29,5 +32,9 @@ public class HrService implements UserDetailsService {
             System.out.println(hr.getName() + " " +role.getName());
         });
         return hr;
+    }
+
+    public List<Hr> getAllHrs(String keywords) {
+        return hrMapper.getAllHrs(HrUtils.getCurrentHr().getId(),keywords);
     }
 }
