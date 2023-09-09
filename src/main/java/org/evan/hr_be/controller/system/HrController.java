@@ -50,4 +50,12 @@ public class HrController {
         return RespBean.error("Update failed!");
     }
 
+    @DeleteMapping("/{id}")
+    public RespBean deleteHrById(@PathVariable Integer id) {
+        if (hrService.deleteHrById(id) == 1) {
+            return RespBean.ok("Delete successfully!");
+        }
+        return RespBean.error("Delete failed!");
+    }
+
 }
