@@ -1,7 +1,11 @@
 package org.evan.hr_be.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.evan.hr_be.model.Politicsstatus;
 
+import java.util.List;
+
+@Mapper
 public interface PoliticsstatusMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +18,6 @@ public interface PoliticsstatusMapper {
     int updateByPrimaryKeySelective(Politicsstatus record);
 
     int updateByPrimaryKey(Politicsstatus record);
+
+    List<Politicsstatus> getAllPoliticsstatus();
 }

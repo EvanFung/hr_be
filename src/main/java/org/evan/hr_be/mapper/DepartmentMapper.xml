@@ -15,6 +15,12 @@
   <sql id="Base_Column_List" >
     id, name, parentId, depPath, enabled, isParent
   </sql>
+  <select id="getAllDepartmentsWithOutChildren" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List">
+    </include>
+    from department;
+  </select>
   <select id="getAllDepartmentsByParentId" resultMap="DepartmentWithChildren">
     select * from department where parentId=#{parentId}
   </select>
