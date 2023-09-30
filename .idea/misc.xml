@@ -4,6 +4,7 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/hr_be/pom.xml" />
+        <option value="$PROJECT_DIR$/hr_be/mailserver/pom.xml" />
       </list>
     </option>
   </component>

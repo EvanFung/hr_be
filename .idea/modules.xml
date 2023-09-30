@@ -8,6 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/hr_be/hrserver/hr-web/hr-web.iml" filepath="$PROJECT_DIR$/hr_be/hrserver/hr-web/hr-web.iml" />
       <module fileurl="file://$PROJECT_DIR$/hr_be/hr_be.iml" filepath="$PROJECT_DIR$/hr_be/hr_be.iml" />
       <module fileurl="file://$PROJECT_DIR$/hr_be/hrserver/hrserver.iml" filepath="$PROJECT_DIR$/hr_be/hrserver/hrserver.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hr_be/mailserver/mailserver.iml" filepath="$PROJECT_DIR$/hr_be/mailserver/mailserver.iml" />
     </modules>
   </component>
 </project>

@@ -9,6 +9,7 @@
         <module name="hr-model" />
         <module name="hr-service" />
         <module name="hr-mapper" />
+        <module name="mailserver" />
         <module name="hr-web" />
       </profile>
     </annotationProcessing>
@@ -19,6 +20,7 @@
       <module name="hr-web" target="1.8" />
       <module name="hr_be" target="1.8" />
       <module name="hrserver" target="1.8" />
+      <module name="mailserver" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -27,6 +29,7 @@
       <module name="hr-model" options="-parameters" />
       <module name="hr-service" options="-parameters" />
       <module name="hr-web" options="-parameters" />
+      <module name="mailserver" options="-parameters" />
     </option>
   </component>
 </project>
