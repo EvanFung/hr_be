@@ -3,8 +3,9 @@ package org.evan.hr_be.service;
 import org.evan.hr_be.mapper.EmployeeMapper;
 import org.evan.hr_be.model.Employee;
 import org.evan.hr_be.model.RespPageBean;
-import org.mybatis.logging.Logger;
-import org.mybatis.logging.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,9 @@ import java.util.List;
 public class EmployeeService {
     @Autowired
     EmployeeMapper employeeMapper;
+    @Autowired
+    RabbitTemplate rabbitTemplate;
+
     public final static Logger logger = LoggerFactory.getLogger(EmployeeService.class);
     SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
     SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
@@ -40,11 +44,17 @@ public class EmployeeService {
     }
 
     public Integer addEmp(Employee employee) {
+        logger.info(employee.toString());
         Date beginContract = employee.getBeginContract();
         Date endContract = employee.getEndContract();
         double month = (Double.parseDouble(yearFormat.format(endContract)) - Double.parseDouble(yearFormat.format(beginContract))) * 12 + (Double.parseDouble(monthFormat.format(endContract)) - Double.parseDouble(monthFormat.format(beginContract)));
         employee.setContractTerm(Double.parseDouble(decimalFormat.format(month / 12)));
         int result = employeeMapper.insertSelective(employee);
+        if(result == 1) {
+            Employee emp = employeeMapper.getEmployeeById(employee.getId());
+            logger.info(emp.toString());
+            rabbitTemplate.convertAndSend("evan.mail.welcome", emp);
+        }
         return result;
     }
 

@@ -2,10 +2,11 @@ package org.evan.hr_be.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-public class Position {
+public class Position implements Serializable {
     private Integer id;
 
     private String name;
