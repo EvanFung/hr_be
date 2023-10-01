@@ -33,6 +33,7 @@ public class MailReceiver {
 
     @RabbitListener(queues = "evan.mail.welcome")
     public void handler(Employee employee) {
+        //mail server
         MimeMessage msg = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(msg);
         try {
