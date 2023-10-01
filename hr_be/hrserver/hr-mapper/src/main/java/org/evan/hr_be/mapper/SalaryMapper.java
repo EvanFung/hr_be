@@ -1,7 +1,11 @@
 package org.evan.hr_be.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.evan.hr_be.model.Salary;
 
+import java.util.List;
+
+@Mapper
 public interface SalaryMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +18,6 @@ public interface SalaryMapper {
     int updateByPrimaryKeySelective(Salary record);
 
     int updateByPrimaryKey(Salary record);
+
+    List<Salary> getAllSalaries();
 }
